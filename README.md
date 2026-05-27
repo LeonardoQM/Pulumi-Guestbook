@@ -4,15 +4,18 @@ This exercise implements a full Kubernetes-based Guestbook application deployed 
 
 🚀 1. Deploy Instructions
 1.1 Create project directory
+
 mkdir pulumi-guestbook-monitoring
 cd pulumi-guestbook-monitoring
-All infrastructure code will live inside this folder.
-All resources are deployed into a single isolated Kubernetes namespace:
+
+All infrastructure code will live inside this folder. All resources are deployed into a single isolated Kubernetes namespace:
 pulumi-guestbook
 
 1.2 Initialize Pulumi project
+
 pulumi login
 pulumi new kubernetes-typescript
+
 When prompted:
     • Project name: pulumi-guestbook-monitoring 
     • Stack name: dev 
@@ -28,25 +31,35 @@ Replace the generated index.ts with the provided implementation.
     • Grafana dashboards (as code) 
 
 1.4 Install dependencies
+
 npm install
+
 Note: this step may already be handled by pulumi new.
 
 1.5 Deploy infrastructure
+
 pulumi up
+
 Confirm the deployment:
 yes
 
 1.6 Verify deployment
+
 kubectl get pods -n pulumi-guestbook
 kubectl get svc -n pulumi-guestbook
 
 
+
 🌐 2. Application Access
 Guestbook Frontend
+
 Pulumi output:
 frontendURL
+
 Or manually:
+
 kubectl get svc -n pulumi-guestbook frontend
+
 Open in browser:
 http://<EXTERNAL-IP>
 
@@ -78,6 +91,8 @@ You should see:
     • node-exporter (UP) 
     • kube-state-metrics (UP) 
 
+    
+
 Step 3 — Validate metrics manually
 Redis metrics
 kubectl port-forward svc/redis-exporter 9121:9121 -n pulumi-guestbook
@@ -105,6 +120,8 @@ These are automatically provisioned via Kubernetes ConfigMaps:
 labels:
   grafana_dashboard: "1"
 
+  
+
 📊 4. Architecture Summary
 Frontend (nginx)
     ↓
@@ -127,7 +144,7 @@ Observability:
 
 📌 5. Assumptions
 The following assumptions were made during the design and implementation of this solution:
-1. Modern and compatible versions
+a. Modern and compatible versions
 All Kubernetes components and dependencies are assumed to be using modern, stable, and compatible versions.
 This includes:
     • Kubernetes API versions supported by the cluster 
@@ -137,7 +154,7 @@ This includes:
     • Exporters (redis-exporter, nginx-prometheus-exporter) using recent stable tags 
 The goal is to avoid deprecated APIs and ensure long-term maintainability.
 
-2. Host operating system
+b. Host operating system
 The development and deployment environment is assumed to be:
     • Ubuntu Linux (local development machine) 
 This affects:
@@ -145,7 +162,7 @@ This affects:
     • Shell scripting and commands used in deployment instructions 
 No Windows-specific or Mac-specific steps are included.
 
-3. Kubernetes environment
+c. Kubernetes environment
 The solution is designed and validated for:
     • OVH Cloud Managed Kubernetes Service 
 Assumptions about the cluster:
@@ -158,13 +175,13 @@ Assumptions about the cluster:
         ◦ ConfigMaps 
         ◦ Custom Resources (ServiceMonitor) 
 
-4. Observability stack behavior
+d. Observability stack behavior
 It is assumed that:
     • Grafana sidecar provisioning is enabled by default in kube-prometheus-stack 
     • ServiceMonitor resources are automatically detected by Prometheus Operator 
     • Default Prometheus scrape configuration is active unless overridden 
 
-5. Security scope (lab environment)
+e. Security scope (lab environment)
 This deployment is intended for:
     • Development / learning / evaluation purposes 
 Therefore:
@@ -177,7 +194,8 @@ Therefore:
 🧯 6. Troubleshooting
 
 This Pulumi code was rigorously tested in a real K8s cluster , but if...
-1. Pods not starting / CrashLoopBackOff
+
+- Pods not starting / CrashLoopBackOff
 Check pod status:
 kubectl get pods -n pulumi-guestbook
 Inspect logs:
@@ -187,7 +205,7 @@ Common causes:
     • Image pull delays (first deployment) 
     • Service DNS resolution issues (Redis replica → master) 
 
-2. Grafana not accessible
+- Grafana not accessible
 Check service status:
 kubectl get svc -n pulumi-guestbook monitoring-grafana
 If EXTERNAL-IP is <pending>:
@@ -196,7 +214,7 @@ If EXTERNAL-IP is <pending>:
 Verify pod is running:
 kubectl get pods -n pulumi-guestbook -l app.kubernetes.io/name=grafana
 
-3. Prometheus not scraping targets
+- Prometheus not scraping targets
 Check ServiceMonitors:
 kubectl get servicemonitor -n pulumi-guestbook
 Expected:
@@ -210,7 +228,7 @@ Look for:
     • UP (green) = healthy scrape 
     • DOWN = exporter or ServiceMonitor issue 
 
-4. No metrics for Redis or NGINX
+- No metrics for Redis or NGINX
 Check exporters:
 kubectl get pods -n pulumi-guestbook | grep exporter
 Validate endpoints manually:
@@ -222,7 +240,7 @@ If empty:
     • exporter cannot reach target service (DNS issue) 
     • wrong REDIS_ADDR or scrape URI 
 
-5. Grafana dashboards not appearing
+- Grafana dashboards not appearing
 Check if dashboards are provisioned:
 kubectl get configmap -n pulumi-guestbook | grep dashboard
 Expected:
@@ -233,7 +251,7 @@ If missing:
     • Ensure label is present: 
 grafana_dashboard: "1"
 
-6. Kubernetes resources inconsistent after update
+- Kubernetes resources inconsistent after update
 Pulumi drift or failed update:
 pulumi refresh
 pulumi preview
