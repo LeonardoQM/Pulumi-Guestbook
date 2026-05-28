@@ -33,8 +33,9 @@ pulumi-guestbook
 
 1.2 Initialize Pulumi project
 
-pulumi login
-pulumi new kubernetes-typescript
+`pulumi login
+
+`pulumi new kubernetes-typescript``
 
 When prompted:
     • Project name: pulumi-guestbook-monitoring 
@@ -52,13 +53,13 @@ Replace the generated index.ts with the provided implementation.
 
 1.4 Install dependencies
 
-npm install
+`npm install`
 
 Note: this step may already be handled by pulumi new.
 
 1.5 Deploy infrastructure
 
-pulumi up
+`pulumi up`
 
 Confirm the deployment:
 yes
