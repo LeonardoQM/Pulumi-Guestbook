@@ -14,7 +14,9 @@ https://www.pulumi.com/docs/install/
 Ensure that the following are available before proceeding:
 
 pulumi CLI available in PATH
+
 Authenticated session via pulumi login
+
 A working Kubernetes context configured (kubectl access to the cluster)
 
 
