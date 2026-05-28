@@ -42,8 +42,11 @@ When prompted:
     • Stack name: dev 
 
 1.3 Replace Pulumi program
+
 Replace the generated index.ts with the provided implementation.
+
 ⚠️ This file contains the full stack:
+
     • Guestbook application 
     • Redis master/replica 
     • Prometheus + Grafana monitoring stack 
