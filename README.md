@@ -24,8 +24,8 @@ A working Kubernetes context configured (kubectl access to the cluster)
 
 1.1 Create project directory
 
-'mkdir pulumi-guestbook-monitoring
-cd pulumi-guestbook-monitoring'
+`mkdir pulumi-guestbook-monitoring
+cd pulumi-guestbook-monitoring`
 
 All infrastructure code will live inside this folder. All resources are deployed into a single isolated Kubernetes namespace:
 pulumi-guestbook
