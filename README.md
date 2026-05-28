@@ -129,7 +129,8 @@ Step 3 — Validate metrics manually
 Redis metrics
 `kubectl port-forward svc/redis-exporter 9121:9121 -n pulumi-guestbook`
 
-curl http://localhost:9121/metrics
+`curl http://localhost:9121/metrics`
+
 Look for:
     • redis_connected_clients 
     • redis_memory_used_bytes 
@@ -234,55 +235,78 @@ This Pulumi code was rigorously tested in a real K8s cluster , but if...
 - Pods not starting / CrashLoopBackOff
 Check pod status:
 
-kubectl get pods -n pulumi-guestbook
+`kubectl get pods -n pulumi-guestbook`
 
 Inspect logs:
 
-kubectl logs <pod-name> -n pulumi-guestbook
+`kubectl logs <pod-name> -n pulumi-guestbook`
 
 Common causes:
     • Missing ConfigMap (frontend HTML) 
     • Image pull delays (first deployment) 
     • Service DNS resolution issues (Redis replica → master) 
 
+
 - Grafana not accessible
 Check service status:
-kubectl get svc -n pulumi-guestbook monitoring-grafana
+
+`kubectl get svc -n pulumi-guestbook monitoring-grafana`
+
 If EXTERNAL-IP is <pending>:
     • The cloud LoadBalancer is still provisioning 
     • Wait 1–3 minutes (specific Cloud behavior) 
 Verify pod is running:
-kubectl get pods -n pulumi-guestbook -l app.kubernetes.io/name=grafana
+
+`kubectl get pods -n pulumi-guestbook -l app.kubernetes.io/name=grafana`
+
 
 - Prometheus not scraping targets
 Check ServiceMonitors:
-kubectl get servicemonitor -n pulumi-guestbook
+
+kubectl get servicemonitor -n pulumi-guestbook`
+
 Expected:
     • redis-sm 
     • frontend-sm 
 Check Prometheus targets:
-kubectl port-forward svc/monitoring-kube-prometheus-prometheus 9090 -n pulumi-guestbook
+
+`kubectl port-forward svc/monitoring-kube-prometheus-prometheus 9090 -n pulumi-guestbook`
+
 Then open:
-http://localhost:9090/targets
+
+`http://localhost:9090/targets`
+
 Look for:
     • UP (green) = healthy scrape 
     • DOWN = exporter or ServiceMonitor issue 
 
+
 - No metrics for Redis or NGINX
 Check exporters:
-kubectl get pods -n pulumi-guestbook | grep exporter
+
+`kubectl get pods -n pulumi-guestbook | grep exporter`
+
 Validate endpoints manually:
-kubectl port-forward svc/redis-exporter 9121:9121 -n pulumi-guestbook
-curl http://localhost:9121/metrics
-kubectl port-forward svc/nginx-exporter 9113:9113 -n pulumi-guestbook
-curl http://localhost:9113/metrics
+
+`kubectl port-forward svc/redis-exporter 9121:9121 -n pulumi-guestbook`
+
+`curl http://localhost:9121/metrics`
+
+`kubectl port-forward svc/nginx-exporter 9113:9113 -n pulumi-guestbook`
+
+`curl http://localhost:9113/metrics
+
 If empty:
     • exporter cannot reach target service (DNS issue) 
     • wrong REDIS_ADDR or scrape URI 
 
+    
+
 - Grafana dashboards not appearing
 Check if dashboards are provisioned:
-kubectl get configmap -n pulumi-guestbook | grep dashboard
+
+`kubectl get configmap -n pulumi-guestbook | grep dashboard`
+
 Expected:
     • redis-dashboard 
     • nginx-dashboard 
@@ -293,8 +317,12 @@ grafana_dashboard: "1"
 
 - Kubernetes resources inconsistent after update
 Pulumi drift or failed update:
-pulumi refresh
-pulumi preview
+
+`pulumi refresh`
+
+`pulumi preview`
+
 Then re-apply:
-pulumi up
+
+`pulumi up`
 
