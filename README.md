@@ -212,9 +212,17 @@ This affects:
 No Windows-specific or Mac-specific steps are included.
 
 c. Kubernetes environment
-The solution is designed and validated for:
 
-    • OVH Cloud Managed Kubernetes Service 
+The solution was developed and validated using the OVH Cloud Managed Kubernetes Service.
+
+However, the implementation is designed to be Kubernetes-agnostic and is expected to run in any standard Kubernetes environment that supports:
+
+LoadBalancer services
+Helm deployments
+Prometheus Operator CRDs
+Standard Kubernetes networking and DNS behavior
+
+Minor adjustments may be required depending on the cloud provider or cluster configuration.
     
 Assumptions about the cluster:
 
