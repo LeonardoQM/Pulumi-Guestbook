@@ -294,7 +294,7 @@ Validate endpoints manually:
 
 `kubectl port-forward svc/nginx-exporter 9113:9113 -n pulumi-guestbook`
 
-`curl http://localhost:9113/metrics
+`curl http://localhost:9113/metrics`
 
 If empty:
     • exporter cannot reach target service (DNS issue) 
