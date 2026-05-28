@@ -43,7 +43,7 @@ When prompted:
 
 1.3 Replace Pulumi program
 
-Replace the generated index.ts with the provided implementation.
+Replace the generated `index.ts` with the provided implementation.
 
 ⚠️ This file contains the full stack:
 
