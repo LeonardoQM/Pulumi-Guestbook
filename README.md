@@ -127,6 +127,7 @@ You should see:
 
 Step 3 — Validate metrics manually
 Redis metrics
+
 `kubectl port-forward svc/redis-exporter 9121:9121 -n pulumi-guestbook`
 
 `curl http://localhost:9121/metrics`
