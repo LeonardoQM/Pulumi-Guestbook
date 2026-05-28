@@ -33,9 +33,9 @@ pulumi-guestbook
 
 1.2 Initialize Pulumi project
 
-`pulumi login
+`pulumi login`
 
-`pulumi new kubernetes-typescript``
+`pulumi new kubernetes-typescript`
 
 When prompted:
     • Project name: pulumi-guestbook-monitoring 
@@ -76,8 +76,9 @@ These values can be used to access and validate the deployed services after the 
 
 1.6 Verify deployment
 
-kubectl get pods -n pulumi-guestbook
-kubectl get svc -n pulumi-guestbook
+`kubectl get pods -n pulumi-guestbook`
+
+`kubectl get svc -n pulumi-guestbook`
 
 
 
@@ -89,7 +90,7 @@ frontendURL
 
 Or manually:
 
-kubectl get svc -n pulumi-guestbook frontend
+`kubectl get svc -n pulumi-guestbook frontend`
 
 Open in browser:
 http://<EXTERNAL-IP>
@@ -126,7 +127,7 @@ You should see:
 
 Step 3 — Validate metrics manually
 Redis metrics
-kubectl port-forward svc/redis-exporter 9121:9121 -n pulumi-guestbook
+`kubectl port-forward svc/redis-exporter 9121:9121 -n pulumi-guestbook`
 
 curl http://localhost:9121/metrics
 Look for:
@@ -134,9 +135,11 @@ Look for:
     • redis_memory_used_bytes 
 
 NGINX metrics
-kubectl port-forward svc/nginx-exporter 9113:9113 -n pulumi-guestbook
 
-curl http://localhost:9113/metrics
+`kubectl port-forward svc/nginx-exporter 9113:9113 -n pulumi-guestbook`
+
+`curl http://localhost:9113/metrics`
+
 Look for:
     • nginx_http_requests_total 
     • nginx_connections_active 
@@ -230,9 +233,13 @@ This Pulumi code was rigorously tested in a real K8s cluster , but if...
 
 - Pods not starting / CrashLoopBackOff
 Check pod status:
+
 kubectl get pods -n pulumi-guestbook
+
 Inspect logs:
+
 kubectl logs <pod-name> -n pulumi-guestbook
+
 Common causes:
     • Missing ConfigMap (frontend HTML) 
     • Image pull delays (first deployment) 
