@@ -21,6 +21,7 @@ A working Kubernetes context configured (kubectl access to the cluster)
 
 
 🚀 1. Deploy Instructions
+
 1.1 Create project directory
 
 mkdir pulumi-guestbook-monitoring
@@ -161,7 +162,9 @@ Observability:
 
 
 📌 5. Assumptions
+
 The following assumptions were made during the design and implementation of this solution:
+
 a. Modern and compatible versions
 All Kubernetes components and dependencies are assumed to be using modern, stable, and compatible versions.
 This includes:
