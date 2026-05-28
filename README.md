@@ -62,6 +62,16 @@ pulumi up
 Confirm the deployment:
 yes
 
+After executing `pulumi up`, Pulumi will display the generated infrastructure outputs defined in the `OUTPUTS` section of the program.
+
+These outputs include dynamically assigned values such as:
+
+- Guestbook frontend external IP and URL
+- Grafana external IP and URL
+- Grafana admin credentials
+
+These values can be used to access and validate the deployed services after the infrastructure provisioning completes.
+
 1.6 Verify deployment
 
 kubectl get pods -n pulumi-guestbook
