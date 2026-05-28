@@ -9,7 +9,7 @@ If Pulumi is not installed, it must be installed following the official instruct
 
 Installation guides are available here:
 
-https://www.pulumi.com/docs/install/
+'https://www.pulumi.com/docs/install/'
 
 Ensure that the following are available before proceeding:
 
@@ -24,8 +24,8 @@ A working Kubernetes context configured (kubectl access to the cluster)
 
 1.1 Create project directory
 
-mkdir pulumi-guestbook-monitoring
-cd pulumi-guestbook-monitoring
+'mkdir pulumi-guestbook-monitoring
+cd pulumi-guestbook-monitoring'
 
 All infrastructure code will live inside this folder. All resources are deployed into a single isolated Kubernetes namespace:
 pulumi-guestbook
