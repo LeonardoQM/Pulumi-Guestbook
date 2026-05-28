@@ -1,6 +1,22 @@
 # Pulumi-Guestbook
 This exercise implements a full Kubernetes-based Guestbook application deployed with Pulumi, including a Redis backend, an NGINX frontend, and a complete observability stack.
 
+⚠️ Prerequisite: Pulumi installation
+
+This project assumes that Pulumi is already installed and configured on the local machine.
+
+If Pulumi is not installed, it must be installed following the official instructions for the specific operating system being used (e.g., Ubuntu, macOS, or Windows).
+
+Installation guides are available here:
+
+https://www.pulumi.com/docs/install/
+
+Ensure that the following are available before proceeding:
+
+pulumi CLI available in PATH
+Authenticated session via pulumi login
+A working Kubernetes context configured (kubectl access to the cluster)
+
 
 🚀 1. Deploy Instructions
 1.1 Create project directory
