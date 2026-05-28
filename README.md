@@ -172,6 +172,7 @@ Observability:
     Prometheus → Grafana Dashboards
 
 ⚠️ Notes
+
     • This setup is lab/demo grade 
     • Grafana password is hardcoded intentionally for simplicity 
     • In production: 
