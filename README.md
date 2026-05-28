@@ -189,25 +189,35 @@ The following assumptions were made during the design and implementation of this
 a. Modern and compatible versions
 All Kubernetes components and dependencies are assumed to be using modern, stable, and compatible versions.
 This includes:
+
     • Kubernetes API versions supported by the cluster 
     • redis:7 official image 
     • nginx:stable image 
     • kube-prometheus-stack Helm chart (modern release compatible with Prometheus Operator CRDs) 
-    • Exporters (redis-exporter, nginx-prometheus-exporter) using recent stable tags 
+    • Exporters (redis-exporter, nginx-prometheus-exporter) using recent stable tags
+    
 The goal is to avoid deprecated APIs and ensure long-term maintainability.
 
 b. Host operating system
+
 The development and deployment environment is assumed to be:
+
     • Ubuntu Linux (local development machine) 
+    
 This affects:
+
     • CLI tooling compatibility (Pulumi, kubectl, Node.js) 
     • Shell scripting and commands used in deployment instructions 
+    
 No Windows-specific or Mac-specific steps are included.
 
 c. Kubernetes environment
 The solution is designed and validated for:
+
     • OVH Cloud Managed Kubernetes Service 
+    
 Assumptions about the cluster:
+
     • LoadBalancer services are supported and provision external IPs automatically 
     • Prometheus Operator CRDs are available via Helm installation 
     • DNS-based service discovery is enabled inside the cluster 
@@ -219,14 +229,18 @@ Assumptions about the cluster:
 
 d. Observability stack behavior
 It is assumed that:
+
     • Grafana sidecar provisioning is enabled by default in kube-prometheus-stack 
     • ServiceMonitor resources are automatically detected by Prometheus Operator 
     • Default Prometheus scrape configuration is active unless overridden 
 
 e. Security scope (lab environment)
 This deployment is intended for:
+
     • Development / learning / evaluation purposes 
+    
 Therefore:
+
     • Grafana admin password is hardcoded (admin123) 
     • No TLS / ingress authentication is configured 
     • Services are exposed via LoadBalancer without additional network restrictions
